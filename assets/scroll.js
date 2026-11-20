@@ -18,7 +18,10 @@
   const update = () => {
     state.timer = null;
     const locale = config()?.dataset.s360Language;
-    if (['en', 'zh-CN', 'zh-TW'].includes(locale)) document.documentElement.lang = locale;
+    if (/^[a-z]{2,3}$/.test(locale || '')) {
+      document.documentElement.lang = locale;
+      document.documentElement.dir = ['ur', 'ks', 'sd'].includes(locale) ? 'rtl' : 'ltr';
+    }
     const markers = [...document.querySelectorAll('[data-s360-scroll-key]')];
     const fresh = markers.filter(m => !state.seen.has(m.dataset.s360ScrollKey));
     const marker = fresh[fresh.length - 1];

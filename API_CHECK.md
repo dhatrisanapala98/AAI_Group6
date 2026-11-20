@@ -1,3 +1,5 @@
+> Recorded against the original reference deployment (Taylor, Riley, Skyler, Vishnu). This repository now uses Aarav, Ishita, Kavya and Meera. Re-run these checks against your own Dify app.
+
 # Verification — completed live scenarios
 
 10 October 2026. The four fictional demo scenarios were tested against the configured published Student 360 Workflow at `https://api.dify.ai/v1`. The user explicitly authorized the demo requests and the Riley/Skyler review decisions. Credentials were read from the separate server-side configuration file and are not reproduced here.

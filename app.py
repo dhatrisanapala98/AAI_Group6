@@ -559,7 +559,7 @@ def review_fields(case: dict):
                 return
             defaults = form.get('resolved_default_values') or {}
             labels = FIELD_LABELS
-            help_text = {'final_plan': 'The exact text you approve is submitted to Dify. Chinese reports translate the reviewed original.',
+            help_text = {'final_plan': 'The exact text you approve is submitted to Dify. Reports in other languages translate the reviewed original.',
                          'record_extract': 'Enter the school-confirmed value or answer. The student and requested information are included automatically.',
                          'record_reference': 'Leave blank if unavailable. This is optional for every action.',
                          'review_note': 'Optional context for the school’s answer.'}

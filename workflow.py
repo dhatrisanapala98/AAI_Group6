@@ -309,18 +309,16 @@ def display_state(case: dict) -> tuple[str, str, str]:
     report = case.get('report', '')
     review = case.get('metadata', {}).get('review_status', '')
     route = case.get('metadata', {}).get('route', '')
-    if route == 'student_not_found' or any(x in report for x in ['Student record not found', '未找到学生记录', '未找到學生記錄']):
+    if route == 'student_not_found' or any(x in report for x in ['Student record not found']):
         return 'Student record not found', 'Check the student name or contact the school.', 'red'
-    if route == 'clarification_required' or any(x in report for x in ['Student name clarification needed', '需要确认学生姓名', '需要確認學生姓名']):
+    if route == 'clarification_required' or any(x in report for x in ['Student name clarification needed']):
         return 'Student name needed', 'Please ask about one student at a time.', 'amber'
-    if review == 'teacher_approved' or any(x in report for x in ['Learning plan approved', '学习计划已批准', '學習計劃已批准', '**Review status:** Teacher approved', '**审核状态:** 教师已批准', '**審核狀態:** 教師已批准']):
+    if review == 'teacher_approved' or any(x in report for x in ['Learning plan approved', '**Review status:** Teacher approved']):
         return 'Teacher-approved plan', 'The reviewed plan is ready to use.', 'green'
-    if review == 'staff_confirmed' or any(x in report for x in ['School verified answer ready', '学校核实的答复已完成', '學校核實的答覆已完成']):
+    if review == 'staff_confirmed' or any(x in report for x in ['School verified answer ready']):
         return 'School-verified answer', 'The answer uses a record verified by the school.', 'green'
     if review in {'evidence_pending', 'answer_pending', 'timed_out', 'not_approved'} or any(x in report for x in [
-        'Awaiting missing information', 'Answer awaiting another check', 'Review not completed in time', 'Plan not approved',
-        '等待补充信息', '等待補充資訊', '答复等待再次检查', '答覆等待再次檢查', '计划未获批准', '計劃未獲批准',
-        '审核未在时限内完成', '審核未在時限內完成']):
+        'Awaiting missing information', 'Answer awaiting another check', 'Review not completed in time', 'Plan not approved']):
         return 'Further school action needed', 'Read the report for the information or review still required.', 'amber'
     return 'Progress answer ready', 'Your report is ready to read.', 'green'
 

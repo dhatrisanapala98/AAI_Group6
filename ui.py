@@ -7,7 +7,7 @@ from zoneinfo import ZoneInfo
 import base64
 import re
 import streamlit as st
-from i18n import t, language, LANGUAGE_CODES
+from i18n import t, language, LANGUAGE_CODES, RTL_CODES
 
 ROOT = Path(__file__).resolve().parent
 
@@ -48,13 +48,13 @@ def css(school: bool = False):
     style = (ROOT / 'assets' / 'style.css').read_text(encoding='utf-8')
     tokens = ('--ink:#17283f;--muted:#56677d;--accent:#345bb2;--accent-deep:#172d50;--accent-tint:#eef2fc;--canvas:#f5f6fa;--line:#e2e6ef;'
               if school else '--ink:#172d39;--muted:#566b76;--accent:#147d74;--accent-deep:#123c42;--accent-tint:#edf7f5;--canvas:#f8fafb;--line:#e2e9ec;')
-    photo = asset_uri('christian_school.png' if school else 'parent_portrait.png')
+    photo = asset_uri('school_building.png' if school else 'parent_portrait.png')
     tokens += '--page-photo:url("' + photo + '");'
     st.html('<style>' + style + '</style><style>:root{' + tokens + '}</style>')
 
 
 def brand():
-    st.html('<div class="brand" aria-label="Student360, Christian Education"><div class="brand-name">student<span>360</span><i></i></div><div class="brand-sub">' + escape(t('CHRISTIAN EDUCATION')) + '</div></div>')
+    st.html('<div class="brand" aria-label="Student360, Indian Schooling"><div class="brand-name">student<span>360</span><i></i></div><div class="brand-sub">' + escape(t('INDIAN SCHOOLING')) + '</div></div>')
 
 
 def landing_story(school: bool = False):
@@ -74,10 +74,10 @@ def landing_story(school: bool = False):
 
 
 def school_showcase():
-    photo = asset_uri('christian_school.png')
-    st.html(f'<section class="school-showcase"><div class="school-showcase-copy"><div class="eyebrow">{escape(t("OUR SCHOOL"))}</div><h2>{escape(t("Christian Education"))}</h2><p>{escape(t("Your school. Your learning community."))}</p><span>{escape(t("A shared place for progress, questions and the next step."))}</span></div><img src="{photo}" alt="{escape(t("Christian Education school reception"))}" loading="lazy"/></section>')
-    with st.expander(t('View the full school photograph')):
-        st.image(str(ROOT / 'assets' / 'christian_school.png'), caption=t('Christian Education school reception'), width='stretch')
+    photo = asset_uri('school_building.png')
+    st.html(f'<section class="school-showcase"><div class="school-showcase-copy"><div class="eyebrow">{escape(t("OUR SCHOOL"))}</div><h2>{escape(t("Student360 Vidyalaya"))}</h2><p>{escape(t("Your school. Your learning community."))}</p><span>{escape(t("A shared place for progress, questions and the next step."))}</span></div><img src="{photo}" alt="{escape(t("Student360 Vidyalaya school building (illustration)"))}" loading="lazy"/></section>')
+    with st.expander(t('View the full school illustration')):
+        st.image(str(ROOT / 'assets' / 'school_building.png'), caption=t('Student360 Vidyalaya school building (illustration)'), width='stretch')
 
 
 def school_header(reviewer: str = ''):
@@ -85,8 +85,8 @@ def school_header(reviewer: str = ''):
     if name == 'School reviewer':
         name = t(name)
     welcome = t('Welcome, {name}.', name=name) if name else t('Welcome.')
-    photo = asset_uri('christian_school.png')
-    st.html(f'<section class="workspace-hero"><div class="workspace-copy"><div class="eyebrow">{escape(t("THE SCHOOL WORKSPACE"))}</div><h1>{escape(welcome)}</h1><p>{escape(t("Every thoughtful review makes a difference."))}</p><div class="workspace-school">{escape(t("CHRISTIAN EDUCATION"))}</div></div><div class="workspace-school-image"><img src="{photo}" alt="{escape(t("Christian Education school reception"))}"/></div></section>')
+    photo = asset_uri('school_building.png')
+    st.html(f'<section class="workspace-hero"><div class="workspace-copy"><div class="eyebrow">{escape(t("THE SCHOOL WORKSPACE"))}</div><h1>{escape(welcome)}</h1><p>{escape(t("Every thoughtful review makes a difference."))}</p><div class="workspace-school">{escape(t("INDIAN SCHOOLING"))}</div></div><div class="workspace-school-image"><img src="{photo}" alt="{escape(t("Student360 Vidyalaya school building (illustration)"))}"/></div></section>')
 
 
 def page_heading(title: str, description: str = '', kicker: str = ''):
@@ -104,9 +104,9 @@ def request_preview(case: dict):
 def request_heading(case: dict, label: str, tone: str, school: bool = False):
     name = case.get('student') or t('Your request')
     details = case_ref(case) + ' · ' + local_time(case['created'])
-    photo = asset_uri('christian_school.png' if school else 'parent_portrait.png')
+    photo = asset_uri('school_building.png' if school else 'parent_portrait.png')
     kicker = t('TEACHER & SCHOOL' if school else 'YOUR CHILD’S LEARNING')
-    st.html(f'<header class="request-heading"><div class="request-heading-copy"><div class="eyebrow">{escape(kicker)}</div><h2>{escape(name)}</h2><p>{escape(details)}</p><span class="badge tone-{tone}" role="status"><span></span>{escape(t(label))}</span></div><img class="request-heading-photo" src="{photo}" alt="{escape(t("Christian Education" if school else "Parent and child learning together"))}"/></header>')
+    st.html(f'<header class="request-heading"><div class="request-heading-copy"><div class="eyebrow">{escape(kicker)}</div><h2>{escape(name)}</h2><p>{escape(details)}</p><span class="badge tone-{tone}" role="status"><span></span>{escape(t(label))}</span></div><img class="request-heading-photo" src="{photo}" alt="{escape(t("Student360 Vidyalaya" if school else "Parent and child learning together"))}"/></header>')
 
 
 def section(title: str, caption: str = '', kicker: str = ''):
@@ -129,10 +129,8 @@ def badge(text: str, tone: str = 'blue'):
 
 
 def local_time(timestamp: float, short: bool = False) -> str:
-    value = datetime.fromtimestamp(timestamp, ZoneInfo('Asia/Hong_Kong'))
-    if language() != 'English':
-        return value.strftime('%m月%d日 · %H:%M' if short else '%Y年%m月%d日 %H:%M HKT')
-    return value.strftime('%d %b · %H:%M' if short else '%d %b %Y, %H:%M HKT')
+    value = datetime.fromtimestamp(timestamp, ZoneInfo('Asia/Kolkata'))
+    return value.strftime('%d %b · %H:%M' if short else '%d %b %Y, %H:%M IST')
 
 
 def case_ref(case: dict) -> str:
@@ -182,7 +180,7 @@ def back_to_top():
 
 def footer(school: bool):
     label = 'Teacher / School workspace' if school else 'Parent portal'
-    st.html(f'<footer class="app-footer"><span><b>Student360</b><span class="footer-separator">/</span>{escape(t("Christian Education"))}</span><span>{escape(t(label))}</span></footer>')
+    st.html(f'<footer class="app-footer"><span><b>Student360</b><span class="footer-separator">/</span>{escape(t("Student360 Vidyalaya"))}</span><span>{escape(t(label))}</span></footer>')
 
 
 def report_body(report: str) -> str:
@@ -221,7 +219,7 @@ def printable_report(case: dict) -> bytes:
     report_locale = LANGUAGE_CODES.get(report_language, 'en')
     source_note = escape(t('Prepared from the published school workflow.', locale=report_language))
     print_note = escape(t('To save as PDF, open your browser’s Print menu and select Save as PDF.', locale=report_language))
-    document = f'''<!doctype html><html lang="{report_locale}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title}</title><style>
-    body{{margin:0;background:#f7f7f2;color:#203249;font:16px/1.75 system-ui,-apple-system,sans-serif}}main{{max-width:820px;margin:40px auto;padding:50px;background:#fff;border-top:5px solid #286356;box-shadow:0 8px 40px #1023340d}}h1{{font-size:30px;color:#12334a}}h2{{font-size:23px}}h3,h4{{font-size:18px;margin-top:28px;color:#286356}}aside{{padding:12px 18px;background:#f0f7f6;border-left:3px solid #286356}}.meta,footer{{color:#68778b;font-size:12px}}.bullet{{margin:3px 0}}footer{{border-top:1px solid #e4eaf0;margin-top:36px;padding-top:18px}}@media print{{body{{background:white}}main{{margin:0;padding:16px;box-shadow:none;max-width:none}}h2,h3{{break-after:avoid}}p,aside{{orphans:3;widows:3}}}}@media(max-width:700px){{main{{margin:0;padding:24px}}}}
+    document = f'''<!doctype html><html lang="{report_locale}" dir="{'rtl' if report_locale in RTL_CODES else 'ltr'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title}</title><style>
+    body{{margin:0;background:#f7f7f2;color:#203249;font:16px/1.8 'Noto Sans','Noto Sans Devanagari','Noto Sans Bengali','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Kannada','Noto Sans Malayalam','Noto Sans Gujarati','Noto Sans Gurmukhi','Noto Sans Oriya','Noto Sans Ol Chiki','Noto Sans Meetei Mayek','Noto Naskh Arabic','Nirmala UI',system-ui,-apple-system,sans-serif}}main{{max-width:820px;margin:40px auto;padding:50px;background:#fff;border-top:5px solid #286356;box-shadow:0 8px 40px #1023340d}}h1{{font-size:30px;color:#12334a}}h2{{font-size:23px}}h3,h4{{font-size:18px;margin-top:28px;color:#286356}}aside{{padding:12px 18px;background:#f0f7f6;border-left:3px solid #286356}}.meta,footer{{color:#68778b;font-size:12px}}.bullet{{margin:3px 0}}footer{{border-top:1px solid #e4eaf0;margin-top:36px;padding-top:18px}}@media print{{body{{background:white}}main{{margin:0;padding:16px;box-shadow:none;max-width:none}}h2,h3{{break-after:avoid}}p,aside{{orphans:3;widows:3}}}}@media(max-width:700px){{main{{margin:0;padding:24px}}}}
     </style></head><body><main><div class="meta">{escape(case_ref(case))} · {escape(local_time(case['created']))}</div>{''.join(chunks)}<footer>Student360 · {source_note}<br>{print_note}</footer></main></body></html>'''
     return document.encode('utf-8')

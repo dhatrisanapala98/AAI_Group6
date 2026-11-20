@@ -1,5 +1,5 @@
 /* Student360 · Quiet surfaces, clear typography, native interactive controls. */
-:root{--paper:#fff;--radius:20px;--sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+:root{--paper:#fff;--radius:20px;--sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans","Noto Sans Devanagari","Noto Sans Bengali","Noto Sans Tamil","Noto Sans Telugu","Noto Sans Kannada","Noto Sans Malayalam","Noto Sans Gujarati","Noto Sans Gurmukhi","Noto Sans Oriya","Noto Sans Ol Chiki","Noto Sans Meetei Mayek","Noto Naskh Arabic","Nirmala UI",sans-serif}
 .stApp{background:var(--canvas);color:var(--ink)}
 [data-testid="stHeader"]{background:transparent}
 [data-testid="stMainBlockContainer"]{max-width:1360px;padding:2.6rem 2rem 1.25rem}
@@ -174,9 +174,10 @@ button:disabled{opacity:.5;box-shadow:none!important}
 @media(max-width:1100px){.school-showcase-copy{padding:30px}.school-showcase-copy h2{font-size:28px}.st-key-app_header button[kind] p{font-size:16px!important}}
 @media(max-width:850px){.school-story{height:480px}.school-showcase{grid-template-columns:1fr 1.2fr}.school-showcase-copy{padding:27px}.school-showcase-copy h2{font-size:25px}}
 @media(max-width:640px){.school-showcase{grid-template-columns:1fr;margin-top:10px}.school-showcase>img{height:330px}.school-showcase-copy{padding:26px}.workspace-school-image{height:260px}.st-key-app_header [data-testid="stColumn"]:not(:first-child){flex:1 1 40%!important}.school-story{height:460px}}
-html[lang^="zh"] .hero-copy h1{letter-spacing:0;line-height:1.35;font-size:clamp(29px,3vw,38px)}
-html[lang^="zh"] .section-heading h2,html[lang^="zh"] .school-showcase-copy h2{letter-spacing:0;line-height:1.4}
-html[lang^="zh"] .eyebrow,html[lang^="zh"] .brand-sub{letter-spacing:1px}
+html:not([lang^="en"]) .hero-copy h1{letter-spacing:0;line-height:1.4;font-size:clamp(29px,3vw,38px)}
+html:not([lang^="en"]) h1,html:not([lang^="en"]) h2,html:not([lang^="en"]) h3,html:not([lang^="en"]) h4{letter-spacing:0;line-height:1.45}
+html:not([lang^="en"]) [data-testid="stMarkdownContainer"] p,html:not([lang^="en"]) [data-testid="stMarkdownContainer"] li{line-height:1.85}
+html:not([lang^="en"]) .eyebrow,html:not([lang^="en"]) .brand-sub{letter-spacing:.5px}
 
 /* My reports: readable request cards and the actual selected response. */
 .st-key-history_workspace{padding-top:2px}

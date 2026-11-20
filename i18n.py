@@ -9,9 +9,39 @@ from pathlib import Path
 import re
 import streamlit as st
 
-LANGUAGES = ['English', 'Chinese (Simplified) 简体中文', 'Chinese (Traditional) 繁體中文']
-LANGUAGE_LABELS = dict(zip(LANGUAGES, ['English', '简体中文', '繁體中文']))
-LANGUAGE_CODES = dict(zip(LANGUAGES, ['en', 'zh-CN', 'zh-TW']))
+# (Dify report_language value, native label, code, right-to-left)
+# The 22 scheduled languages of India plus English. The Dify value is what the
+# published workflow receives, so it must match its report_language options.
+_LANG_TABLE = [
+    ('English', 'English', 'en', False),
+    ('Hindi हिन्दी', 'हिन्दी', 'hi', False),
+    ('Bengali বাংলা', 'বাংলা', 'bn', False),
+    ('Telugu తెలుగు', 'తెలుగు', 'te', False),
+    ('Marathi मराठी', 'मराठी', 'mr', False),
+    ('Tamil தமிழ்', 'தமிழ்', 'ta', False),
+    ('Urdu اردو', 'اردو', 'ur', True),
+    ('Gujarati ગુજરાતી', 'ગુજરાતી', 'gu', False),
+    ('Kannada ಕನ್ನಡ', 'ಕನ್ನಡ', 'kn', False),
+    ('Odia ଓଡ଼ିଆ', 'ଓଡ଼ିଆ', 'or', False),
+    ('Malayalam മലയാളം', 'മലയാളം', 'ml', False),
+    ('Punjabi ਪੰਜਾਬੀ', 'ਪੰਜਾਬੀ', 'pa', False),
+    ('Assamese অসমীয়া', 'অসমীয়া', 'as', False),
+    ('Maithili मैथिली', 'मैथिली', 'mai', False),
+    ('Santali ᱥᱟᱱᱛᱟᱲᱤ', 'ᱥᱟᱱᱛᱟᱲᱤ', 'sat', False),
+    ('Kashmiri کٲشُر', 'کٲشُر', 'ks', True),
+    ('Nepali नेपाली', 'नेपाली', 'ne', False),
+    ('Sindhi سنڌي', 'سنڌي', 'sd', True),
+    ('Konkani कोंकणी', 'कोंकणी', 'kok', False),
+    ('Dogri डोगरी', 'डोगरी', 'doi', False),
+    ('Manipuri (Meitei) ꯃꯤꯇꯩꯂꯣꯟ', 'ꯃꯤꯇꯩꯂꯣꯟ', 'mni', False),
+    ('Bodo बड़ो', 'बड़ो', 'brx', False),
+    ('Sanskrit संस्कृतम्', 'संस्कृतम्', 'sa', False),
+]
+LANGUAGES = [row[0] for row in _LANG_TABLE]
+LANGUAGE_LABELS = {row[0]: row[1] for row in _LANG_TABLE}
+LANGUAGE_CODES = {row[0]: row[2] for row in _LANG_TABLE}
+RTL_CODES = {row[2] for row in _LANG_TABLE if row[3]}
+LOCALES_DIR = Path(__file__).parent / 'locales'
 
 
 def language() -> str:
@@ -19,11 +49,21 @@ def language() -> str:
     return selected if selected in LANGUAGES else 'English'
 
 
+def has_interface_translation(code: str) -> bool:
+    """True when the interface has a message catalog for this language.
+
+    Report generation covers every language through Dify. Interface labels are
+    translated for the languages that have a catalog; the rest show English labels.
+    """
+    return code == 'en' or (LOCALES_DIR / (code + '.json')).is_file()
+
+
 @st.cache_data(show_spinner=False)
 def catalog(code: str) -> dict[str, str]:
-    if code == 'en':
+    path = LOCALES_DIR / (code + '.json')
+    if code == 'en' or not path.is_file():
         return {}
-    return json.loads((Path(__file__).parent / 'locales' / (code + '.json')).read_text(encoding='utf-8'))
+    return json.loads(path.read_text(encoding='utf-8'))
 
 
 def t(message: str, *, locale: str | None = None, **values) -> str:
