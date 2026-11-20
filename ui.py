@@ -13,11 +13,19 @@ ROOT = Path(__file__).resolve().parent
 
 
 @st.cache_data(show_spinner=False)
-def asset_uri(filename: str) -> str:
-    """Only public, bundled imagery is cached; never credentials or reports."""
+def _asset_uri(filename: str, stamp: int) -> str:
+    """Only public, bundled imagery is cached; never credentials or reports.
+
+    `stamp` (the file's modification time) is part of the cache key, so a
+    redeploy that replaces an image is picked up without restarting the app.
+    """
     path = ROOT / 'assets' / filename
     mime = 'image/png' if path.suffix == '.png' else 'image/jpeg'
     return 'data:' + mime + ';base64,' + base64.b64encode(path.read_bytes()).decode('ascii')
+
+
+def asset_uri(filename: str) -> str:
+    return _asset_uri(filename, (ROOT / 'assets' / filename).stat().st_mtime_ns)
 
 
 ICONS = {
