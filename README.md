@@ -150,9 +150,9 @@ The example buttons **only populate questions**. They do not fabricate results o
 
 | Student | Example question | Intended demonstration |
 |---|---|---|
-| Taylor | Latest recorded official IELTS result, date and section scores | An automatic progress answer when the available records support it |
-| Riley | Official PET listening score on February 28, 2026 | A school evidence gap, then request-records or verified-record handling |
-| Skyler | One-week listening support plan based on the report and feedback | A paused teacher review followed by an edited/approved or declined plan |
+| Kavya | Latest national open mock result (CLAT pattern), date and section scores | An automatic progress answer when the available records support it |
+| Aarav | Official SOF IMO Level 1 score on December 12, 2025 | A school evidence gap, then request-records or verified-record handling |
+| Ishita | One-week Math support plan based on the report and feedback | A paused teacher review followed by an edited/approved or declined plan |
 | Vishnu | Show the learning progress report | The workflow’s unknown-student response |
 
 Actual routes depend on your published workflow, knowledge base and the question. The live Riley supplied-answer test used the fictional demo value `152`, with a blank reference and note. It completed with **School confirmed the answer**. This tests the human-review flow; it does not recover the illegible value in the original source.

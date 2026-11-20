@@ -78,7 +78,7 @@ workflow:
       data:
         type: start
         title: Ask about student progress
-        desc: 'Include the student name in your question: Taylor, Riley or Skyler. Choose your preferred language for the
+        desc: 'Include the student name in your question: Aarav, Ishita or Kavya. Choose your preferred language for the
           final report.'
         selected: false
         variables:
@@ -117,8 +117,8 @@ workflow:
         title: Find student
         desc: ''
         selected: false
-        code: "import re\ndef main(question: str) -> dict:\n    q = (question or '').strip()\n    q = re.sub(r'\\bTalylor\\\
-          b', 'Taylor', q, flags=re.I)\n    catalog = ['Taylor', 'Riley', 'Skyler']\n    matches = [name for name in catalog\
+        code: "import re\ndef main(question: str) -> dict:\n    q = (question or '').strip()\n    q = re.sub(r'\\bKaavya\\\
+          b', 'Kavya', q, flags=re.I)\n    catalog = ['Aarav', 'Ishita', 'Kavya']\n    matches = [name for name in catalog\
           \ if re.search(r'\\b' + name + r'\\b', q, re.I)]\n    if len(matches) == 1:\n        name = matches[0]\n       \
           \ return {'lookup_status': 'known', 'student_alias': name, 'question': q,\n                'retrieval_query': name\
           \ + ' learning report. ' + q, 'lookup_message': ''}\n    if len(matches) > 1:\n        return {'lookup_status':\
@@ -1582,10 +1582,10 @@ workflow:
           \        content['missing_information'] = ('学生记录或明确的学生姓名。' if code == 'zh-Hans'\n                              \
           \             else '學生記錄或明確的學生姓名。')\n        content['translation_status'] = 'localized'\n\n    needs_translation\
           \ = code != 'en' and content['translation_status'] != 'localized'\n    protected = {}\n    payload = {}\n    names\
-          \ = ['Taylor', 'Riley', 'Skyler']\n    student = str(result.get('student_alias') or '')\n    if student and student\
+          \ = ['Aarav', 'Ishita', 'Kavya']\n    student = str(result.get('student_alias') or '')\n    if student and student\
           \ not in names:\n        names.append(student)\n    name_pattern = r'\\b(?:' + '|'.join(re.escape(item) for item\
           \ in names) + r')\\b'\n    pattern = re.compile(\n        r'\\[[^\\]\\n]{1,200}\\]|https?://[^\\s)]+|' + name_pattern\
-          \ +\n        r'|\\b(?:IELTS|TOEFL|PET|KET|CEFR|[ABC][12])\\b|\\d+(?:[.,:/-]\\d+)*(?:%)?', re.I\n    )\n    def letters(number):\n\
+          \ +\n        r'|\\b(?:IELTS|TOEFL|PET|KET|CEFR|SAT|CLAT|JEE|IMO|NSO|IOQM|NSEJS|[ABC][12])\\b|\\d+(?:[.,:/-]\\d+)*(?:%)?', re.I\n    )\n    def letters(number):\n\
           \        label = ''\n        while True:\n            label = chr(65 + number % 26) + label\n            number\
           \ = number // 26 - 1\n            if number < 0:\n                return label\n    def protect(match):\n      \
           \  token = 'ZXQ' + letters(len(protected)) + 'QXZ'\n        while any(token in value for value in content.values()):\n\
@@ -2044,7 +2044,7 @@ workflow:
           \ record reference.')\n    if len(extract)<20 or not re.search(r'[A-Za-z\\u3400-\\u9fff]',extract):\n        return\
           \ output('no','The school submission needs the readable record text, including the student, exam or subject, date\
           \ and result. A number alone cannot confirm the answer.')\n    if any(name!=student_alias and re.search(r'\\b'+re.escape(name)+r'\\\
-          b',extract,re.I) for name in ['Taylor','Riley','Skyler']):\n        return output('no','The submitted extract mentions\
+          b',extract,re.I) for name in ['Aarav','Ishita','Kavya']):\n        return output('no','The submitted extract mentions\
           \ another student. Please provide only this student’s record.')\n    normalize=lambda s:re.sub(r'\\s+',' ',s).strip()\n\
           \    if action_id=='confirm_existing':\n        candidates=list(docs)\n        if reference:\n            ref=reference\
           \ if reference.startswith('[') and reference.endswith(']') else '['+reference+']'\n            candidates=[ref]\

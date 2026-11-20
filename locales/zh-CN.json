@@ -43,7 +43,6 @@
   "Progress, results or a little extra support.": "了解学习进展、成绩或所需的额外支持。",
   "YOUR CHILD’S LEARNING": "孩子的学习",
   "Student name": "学生姓名",
-  "e.g. Taylor": "例如 Taylor",
   "You can also include the name directly in your question.": "您也可以直接在问题中写明学生姓名。",
   "Report language: {language}": "报告语言：{language}",
   "Your question": "您的问题",
@@ -58,10 +57,6 @@
   "Check a specific result": "核实具体成绩",
   "Request a support plan": "申请学习支持计划",
   "Find a student record": "查找学生记录",
-  "What is Taylor’s latest recorded official IELTS result, including the date and all section scores?": "Taylor 最近一次已记录的官方雅思成绩是什么？请提供日期和各单项分数。",
-  "What was Riley’s official PET listening score on February 28, 2026?": "Riley 在 2026 年 2 月 28 日的官方 PET 听力成绩是多少？",
-  "Create a one-week listening support plan for Skyler based on the report and teacher feedback.": "请根据报告和教师反馈，为 Skyler 制定为期一周的听力支持计划。",
-  "Show the learning progress report for Vishnu.": "请提供 Vishnu 的学习进展报告。",
   "Your request": "您的请求",
   "YOUR LEARNING CONVERSATION": "您的学习交流",
   "View your question": "查看您的问题",
@@ -364,5 +359,10 @@
   "Optional context for the school’s answer.": "学校答复的补充说明，选填。",
   "I confirm this is the school’s answer for this student and question.": "我确认这是学校针对该学生及此问题的答复。",
   "Enter the school’s answer, or choose Request missing records.": "请输入学校答复，或选择“请求缺失记录”。",
-  "Confirm the school’s answer before submitting it.": "提交前，请确认学校的答复。"
+  "Confirm the school’s answer before submitting it.": "提交前，请确认学校的答复。",
+  "e.g. Kavya": "例如 Kavya",
+  "What were Kavya’s latest national open mock results, including the date and all section scores?": "Kavya 最近的全国公开模拟考试成绩是什么？请提供日期和各单项分数。",
+  "What was Aarav’s official SOF IMO Level 1 score on December 12, 2025?": "Aarav 在 2025 年 12 月 12 日的 SOF IMO 一级官方成绩是多少？",
+  "Create a one-week Math support plan for Ishita based on the report and teacher feedback.": "请根据报告和教师反馈，为 Ishita 制定为期一周的数学支持计划。",
+  "Show the learning progress report for Meera.": "显示 Meera 的学习进度报告。"
 }

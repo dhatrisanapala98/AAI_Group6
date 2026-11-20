@@ -29,10 +29,10 @@ st.set_page_config(page_title=t('Student360 | Progress & support'), page_icon=st
                    menu_items={'Get Help': None, 'Report a bug': None, 'About': t('Student360 · Record-based progress answers and human-reviewed learning plans.')})
 
 EXAMPLES = [
-    ('Taylor', 'Recorded progress', 'What is Taylor’s latest recorded official IELTS result, including the date and all section scores?'),
-    ('Riley', 'Check a specific result', 'What was Riley’s official PET listening score on February 28, 2026?'),
-    ('Skyler', 'Request a support plan', 'Create a one-week listening support plan for Skyler based on the report and teacher feedback.'),
-    ('Vishnu', 'Find a student record', 'Show the learning progress report for Vishnu.'),
+    ('Kavya', 'Recorded progress', 'What were Kavya’s latest national open mock results, including the date and all section scores?'),
+    ('Aarav', 'Check a specific result', 'What was Aarav’s official SOF IMO Level 1 score on December 12, 2025?'),
+    ('Ishita', 'Request a support plan', 'Create a one-week Math support plan for Ishita based on the report and teacher feedback.'),
+    ('Meera', 'Find a student record', 'Show the learning progress report for Meera.'),
 ]
 
 try:
@@ -323,7 +323,7 @@ def question_form():
     with st.container(key='question_card'):
         ui.section('Start with a question.', 'Progress, results or a little extra support.', 'YOUR CHILD’S LEARNING')
         # Native controls sync their values before a global language switch.
-        student = st.text_input(t('Student name'), key='student_name', placeholder=t('e.g. Taylor'), max_chars=60,
+        student = st.text_input(t('Student name'), key='student_name', placeholder=t('e.g. Kavya'), max_chars=60,
                                 help=t('You can also include the name directly in your question.'))
         selected_language = language()
         st.caption(t('Report language: {language}', language=LANGUAGE_LABELS[selected_language]))
@@ -338,7 +338,7 @@ def question_form():
                 student = student.strip()
                 if student and not re.search(r'\b' + re.escape(student) + r'\b', q, re.I):
                     q = t('Question about {student}: {question}', student=student, question=q)
-                names = [n for n in ['Taylor', 'Riley', 'Skyler', 'Vishnu'] if re.search(r'\b' + n + r'\b', q, re.I)]
+                names = [n for n in ['Aarav', 'Ishita', 'Kavya', 'Meera'] if re.search(r'\b' + n + r'\b', q, re.I)]
                 alias = names[0] if len(names) == 1 else student
                 case = store.create(q, selected_language, alias)
                 st.session_state.parent_cases.append(case['id'])
